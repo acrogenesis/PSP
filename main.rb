@@ -8,7 +8,6 @@ files_Array = []
 print 'Nombre del archivo: '
 file_name = gets.chomp
 while file_name != ''
-  puts file_name.inspect
   file = FileManager.new(file_name)
   files_Array << file
   file.count
