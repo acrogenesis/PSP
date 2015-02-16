@@ -4,12 +4,12 @@ require_relative 'line_counter'
 total_files = 0
 total_blank_lines = 0
 total_info_lines = 0
-files_Array = []
+files_array = []
 print 'Nombre del archivo: '
 file_name = gets.chomp
 while file_name != ''
   file = FileManager.new(file_name)
-  files_Array << file
+  files_array << file
   file.count
   total_blank_lines += file.blank_lines
   total_info_lines += file.info_lines
@@ -17,10 +17,10 @@ while file_name != ''
   print 'Nombre del archivo: '
   file_name = gets.chomp
 end
-files_Array.sort! do |a1, a2|
+files_array.sort! do |a1, a2|
   a1.info_lines <=> a2.info_lines
 end
-files_Array.each(&:pretty_print)
+files_array.each(&:pretty_print)
 
 puts 'TOTALES:'
 puts "Cantidad de archivos: #{total_files}"

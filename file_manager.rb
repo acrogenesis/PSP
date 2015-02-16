@@ -37,13 +37,16 @@ class FileManager
         if File.readable?(file_name)
           true
         else
-          fail 'Error: Archivo no se puede leer.'
+          puts 'Error: Archivo no se puede leer.'
+          exit(0)
         end
       else
-        fail "Error: El archivo \"#{file_name}\" no existe."
+        puts "Error: El archivo \"#{file_name}\" no existe."
+        exit(0)
       end
     else
-      fail 'Error: Solo se permite archivos .txt.'
+      puts 'Error: Solo se permite archivos .txt.'
+      exit(0)
     end
   end
 end
