@@ -1,6 +1,6 @@
 class FileManager
   # Get and Set for file_name, blank_lines, and info_lines
-  attr_accessor :file_name, :blank_lines, :info_lines
+  attr_accessor :file_name, :total_lines, :base, :new, :reused
 
   # FileManager.new arguments
   def initialize(file_name)

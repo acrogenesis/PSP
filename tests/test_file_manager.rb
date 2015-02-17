@@ -1,6 +1,4 @@
-require 'minitest/autorun'
-require_relative '../file_manager'
-require_relative '../line_counter'
+require_relative 'test_helper'
 
 class TestFileManager < Minitest::Test
   def setup
