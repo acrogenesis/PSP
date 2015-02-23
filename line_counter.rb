@@ -9,9 +9,7 @@ class LineCounter
     content.each_with_index do |val, inx|
       val = val.strip
       if skip
-        if val =~ %r{^.*\*/}
-          skip = false
-        end
+        skip = false if val =~ %r{^.*\*/}
         next
       end
       if val =~ %r{^\s*/\*}
@@ -41,7 +39,7 @@ class LineCounter
         klass = ClassManager.new(name: val.gsub(%r{//&p-}, '').strip)
         inclass = true
       else
-        other_lines +=1 unless val =~ %r{^(\s*//|\s*$|\s*[{}]\s*[^\w]{;})} || val =~ /^\s*[{}]\s*$/
+        other_lines += 1 unless val =~ %r{^(\s*//|\s*$|\s*[{}]\s*[^\w]{;})} || val =~ /^\s*[{}]\s*$/
       end
     end
     klass_array << klass
@@ -54,6 +52,6 @@ class LineCounter
     # file.blank_lines = f.scan(/^( |\t|)*(\n|\r\n|\r)/).count + f.scan(/\n\Z/).count
     # file.info_lines = total - file.blank_lines
     # total
-    {klass_array: klass_array, other_lines: other_lines}
+    { klass_array: klass_array, other_lines: other_lines }
   end
 end
