@@ -1,38 +1,30 @@
+require_relative 'line_counter'
 class FileManager
   # Get and Set for file_name, blank_lines, and info_lines
-  attr_accessor :file_name, :total_lines, :base, :new, :reused
+  attr_accessor :file_name, :total_lines, :klass_array
 
   # FileManager.new arguments
   def initialize(file_name)
     self.file_name = file_name
-    self.blank_lines = 0
-    self.info_lines = 0
+    self.total_lines = 0
     check_exceptions
   end
 
   # Calls LineCounter to count lines
   def count
-    LineCounter.count(self)
-    true
+    file_info = LineCounter.count(File.readlines file_name)
+    self.total_lines = file_info[:other_lines]
+    self.klass_array = file_info[:klass_array]
   end
 
-  # Returns total count
-  def total
-    blank_lines + info_lines
-  end
-
-  # Pretty prints file info
-  def pretty_print
-    puts "Nombre del archivo: #{file_name}"
-    puts "Cantidad de líneas en blanco: #{blank_lines}"
-    puts "Cantidad de líneas con información: #{info_lines}"
-    puts '--------------------------------------------'
+  def total_lines
+    @total_lines + klass_array.map(&:total_lines).inject(:+)
   end
 
   private
 
   def check_exceptions
-    if File.extname(file_name) == '.txt'
+    if File.extname(file_name) == '.src'
       if File.exist?(file_name)
         if File.readable?(file_name)
           true
@@ -45,7 +37,7 @@ class FileManager
         exit(0)
       end
     else
-      puts 'Error: Solo se permite archivos .txt.'
+      puts 'Error: Solo se permite archivos .src.'
       exit(0)
     end
   end

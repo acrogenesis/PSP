@@ -21,13 +21,15 @@ class ClassManager
   end
 
   # Pretty prints file info
-  def pretty_print
+  def pretty_print(print_type)
+    return unless print_type == real_type
     print "#{name}: T=#{total_lines}, I=#{item_count} "
-    return unless type == 'base'
-    print "B=#{base_lines},"
-    return unless real_type == 'base'
-    print " D=#{delete_count}, "
-    print "M=#{modified_count}, "
-    print "A=#{added_lines}"
+    print "B=#{base_lines}," if type == 'base'
+    if real_type == 'base'
+      print " D=#{delete_count}, "
+      print "M=#{modified_count}, "
+      print "A=#{added_lines}"
+    end
+    puts
   end
 end

@@ -1,18 +1,14 @@
 #!/usr/bin/env ruby
 require_relative 'file_manager'
-require_relative 'line_counter'
-
 class Main
   def self.start
     info = read
-    sorted_files_array = sort(info[:files_array])
-    pretty_print(sorted_files_array, info)
+    # sorted_files_array = sort(info[:files_array])
+    pretty_print(info[:files_array], info[:total_lines])
   end
 
   def self.read
-    total_files = 0
-    total_blank_lines = 0
-    total_info_lines = 0
+    total_lines = 0
     files_array = []
     print 'Nombre del archivo: '
     file_name = gets.chomp
@@ -20,29 +16,38 @@ class Main
       file = FileManager.new(file_name)
       files_array << file
       file.count
-      total_blank_lines += file.blank_lines
-      total_info_lines += file.info_lines
-      total_files += 1
+      total_lines += file.total_lines
       print 'Nombre del archivo: '
       file_name = gets.chomp
     end
-    { files_array: files_array, total_blank_lines: total_blank_lines,
-      total_info_lines: total_info_lines, total_files: total_files }
+    { files_array: files_array, total_lines: total_lines }
   end
 
-  def self.sort(files_array)
-    files_array.sort! do |a1, a2|
-      a1.info_lines <=> a2.info_lines
+  # def self.sort(files_array)
+  #   files_array.sort! do |a1, a2|
+  #     a1.info_lines <=> a2.info_lines
+  #   end
+  # end
+
+  def self.pretty_print(files_array, total_lines)
+    # sorted_files_array.each(&:pretty_print)
+
+    puts 'PARTES BASE:'
+    files_array.map do |f|
+      f.klass_array.map { |k| k.pretty_print('base') }
     end
-  end
-
-  def self.pretty_print(sorted_files_array, info)
-    sorted_files_array.each(&:pretty_print)
-
-    puts 'TOTALES:'
-    puts "Cantidad de archivos: #{info[:total_files]}"
-    puts "Cantidad total de líneas en blanco: #{info[:total_blank_lines]}"
-    puts "Cantidad total de líneas con información: #{info[:total_info_lines]}"
+    puts '--------------------------------------------'
+    puts 'PARTES NUEVAS:'
+    files_array.map do |f|
+      f.klass_array.map { |k| k.pretty_print('nueva') }
+    end
+    puts '--------------------------------------------'
+    puts 'PARTES REUSADAS:'
+    files_array.map do |f|
+      f.klass_array.map { |k| k.pretty_print('reusada') }
+    end
+    puts '--------------------------------------------'
+    puts "Total de LDC=#{total_lines}"
   end
 end
 

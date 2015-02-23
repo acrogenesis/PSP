@@ -4,7 +4,8 @@ class LineCounter
     inclass = false
     skip = false
     klass = nil
-    klassArray = []
+    klass_array = []
+    other_lines = 0
     content.each_with_index do |val, inx|
       val = val.strip
       if skip
@@ -34,14 +35,16 @@ class LineCounter
         end
         if content[inx + 1] =~ %r{//&p}
           inclass = false
-          klassArray << klass
+          klass_array << klass
         end
       elsif val =~ %r{//&p}
         klass = ClassManager.new(name: val.gsub(%r{//&p-}, '').strip)
         inclass = true
+      else
+        other_lines +=1 unless val =~ %r{^(\s*//|\s*$|\s*[{}]\s*[^\w]{;})} || val =~ /^\s*[{}]\s*$/
       end
     end
-    klassArray << klass
+    klass_array << klass
     # f = File.read(file.file_name)
     # if f == ''
     #   file.blank_lines = 1
@@ -51,6 +54,6 @@ class LineCounter
     # file.blank_lines = f.scan(/^( |\t|)*(\n|\r\n|\r)/).count + f.scan(/\n\Z/).count
     # file.info_lines = total - file.blank_lines
     # total
-    klassArray
+    {klass_array: klass_array, other_lines: other_lines}
   end
 end
