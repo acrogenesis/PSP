@@ -32,4 +32,16 @@ class ClassManager
     end
     puts
   end
+
+  def pretty_string(print_type, s)
+    return unless print_type == real_type
+    s.print "#{name}: T=#{total_lines}, I=#{item_count} "
+    s.print "B=#{base_lines}," if type == 'base'
+    if real_type == 'base'
+      s.print " D=#{delete_count}, "
+      s.print "M=#{modified_count}, "
+      s.print "A=#{added_lines}"
+    end
+    s.puts
+  end
 end
