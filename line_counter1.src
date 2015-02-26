@@ -1,4 +1,6 @@
+#&p-LineCounter
 class LineCounter
+  #&i
   def self.count(file)
     f = File.read(file.file_name)
     if f == ''

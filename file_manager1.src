@@ -1,8 +1,10 @@
+#&p-FileManager
 class FileManager
   # Get and Set for file_name, blank_lines, and info_lines
   attr_accessor :file_name, :blank_lines, :info_lines
 
   # FileManager.new arguments
+  #&i
   def initialize(file_name)
     self.file_name = file_name
     self.blank_lines = 0
@@ -11,17 +13,20 @@ class FileManager
   end
 
   # Calls LineCounter to count lines
+  #&i
   def count
     LineCounter.count(self)
     true
   end
 
   # Returns total count
+  #&i
   def total
     blank_lines + info_lines
   end
 
   # Pretty prints file info
+  #&i
   def pretty_print
     puts "Nombre del archivo: #{file_name}"
     puts "Cantidad de líneas en blanco: #{blank_lines}"
@@ -31,6 +36,7 @@ class FileManager
 
   private
 
+  #&i
   def check_exceptions
     if File.extname(file_name) == '.txt'
       if File.exist?(file_name)
