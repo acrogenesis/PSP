@@ -2,44 +2,44 @@ require_relative 'class_manager'
 class LineCounter
   def self.count(content)
     inclass = false
-    skip = false
+    # skip = false
     klass = nil
     klass_array = []
     other_lines = 0
     content.each_with_index do |val, inx|
       val = val.strip
-      if skip
-        skip = false if val =~ %r{^.*\*/}
-        next
-      end
-      if val =~ %r{^\s*/\*}
-        skip = true unless val =~ %r{^.*\*/}
-        next
-      end
+      # if skip
+      #   skip = false if val =~ %r{^.*\*/}
+      #   next
+      # end
+      # if val =~ %r{^\s*/\*}
+      #   skip = true unless val =~ %r{^.*\*/}
+      #   next
+      # end
 
       if inclass
         # puts val if klass.name = 'Cliente'
-        klass.total_lines += 1 unless val =~ %r{^(\s*//|\s*$|\s*[{}]\s*[^\w]{;})} || val =~ /^\s*[{}]\s*$/
-        # puts "#{inx}: #{val}" unless val =~ %r{^(\s*//|\s*$|\s*[{}]\s*[^\w]{;})} || val =~ /^\s*[{}]\s*$/
-        if val =~ %r{//&b=}
+        klass.total_lines += 1 unless val =~ /^(#.*|end|\s*)*$/
+        # puts "#{inx}: #{val}" unless val =~ /^(#.*|end|\s*)$/
+        if val =~ /#&b=/
           klass.type = 'base'
-          klass.base_lines += val.gsub(%r{//&b=}, '').to_i
-        elsif val =~ %r{//&i}
+          klass.base_lines += val.gsub(/#&b=/, '').to_i
+        elsif val =~ /#&i/
           klass.item_count += 1
-        elsif val =~ %r{//&d}
+        elsif val =~ /#&d/
           klass.delete_count += val.delete('^0-9').to_i
-        elsif val =~ %r{//&m}
+        elsif val =~ /#&m/
           klass.modified_count += 1
         end
-        if content[inx + 1] =~ %r{//&p}
+        if content[inx + 1] =~ /#&p/
           inclass = false
           klass_array << klass
         end
-      elsif val =~ %r{//&p}
-        klass = ClassManager.new(name: val.gsub(%r{//&p-}, '').strip)
+      elsif val =~ /#&p/
+        klass = ClassManager.new(name: val.gsub(/#&p-/, '').strip)
         inclass = true
       else
-        other_lines += 1 unless val =~ %r{^(\s*//|\s*$|\s*[{}]\s*[^\w]{;})} || val =~ /^\s*[{}]\s*$/
+        other_lines += 1 unless val =~ /^(#.*|end|\s*)*$/
       end
     end
     klass_array << klass
