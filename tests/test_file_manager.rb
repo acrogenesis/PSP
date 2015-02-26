@@ -12,6 +12,6 @@ class TestFileManager < Minitest::Test
   end
 
   def test_total_lines
-    assert_equal @file.total_lines, 162
+    assert_equal @file.total_lines, 158
   end
 end
