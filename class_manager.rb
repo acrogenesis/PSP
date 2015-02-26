@@ -1,6 +1,7 @@
+#&p-LineCounter
 class ClassManager
   attr_accessor :name, :type, :base_lines, :item_count, :delete_count, :modified_count, :total_lines
-
+  #&i
   def initialize(args)
     @name = args[:name]
     @item_count = 0
@@ -10,10 +11,12 @@ class ClassManager
     @base_lines = 0
   end
 
+  #&i
   def added_lines
     total_lines - base_lines + delete_count
   end
 
+  #&i
   def real_type
     return 'nueva' if type.nil?
     return 'reusada' if total_lines == base_lines
@@ -21,6 +24,7 @@ class ClassManager
   end
 
   # Pretty prints file info
+  #&i
   def pretty_print(print_type)
     return unless print_type == real_type
     print "#{name}: T=#{total_lines}, I=#{item_count} "
@@ -33,6 +37,7 @@ class ClassManager
     puts
   end
 
+  #&i
   def pretty_string(print_type, s)
     return unless print_type == real_type
     s.print "#{name}: T=#{total_lines}, I=#{item_count} "

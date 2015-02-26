@@ -1,5 +1,8 @@
 require_relative 'class_manager'
+#&p-LineCounter
+#&b=10
 class LineCounter
+  #&i
   def self.count(content)
     inclass = false
     # skip = false
@@ -43,6 +46,7 @@ class LineCounter
       end
     end
     klass_array << klass
+    #&d=8
     # f = File.read(file.file_name)
     # if f == ''
     #   file.blank_lines = 1
