@@ -7,11 +7,11 @@ class TestFileManager < Minitest::Test
   end
 
   # Returns correct name
-  def test_name
-    assert_equal 'test1.src', @file.file_name
+
+  def test_check_exceptions
   end
 
-  def test_total_lines
-    assert_equal @file.total_lines, 162
+  def test_pretty_print
+    skip
   end
 end

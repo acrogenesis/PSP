@@ -1,24 +1,18 @@
-require_relative 'line_counter'
+require_relative 'math_linear_regression'
 class FileManager
   # Get and Set for file_name, blank_lines, and info_lines
-  attr_accessor :file_name, :total_lines, :klass_array
+  attr_accessor :file_name, :N, :xk, :r, :r2, :b0, :b1, :yk
 
   # FileManager.new arguments
   def initialize(file_name)
     self.file_name = file_name
-    self.total_lines = 0
     check_exceptions
   end
 
-  # Calls LineCounter to count lines
-  def count
-    file_info = LineCounter.count(File.readlines file_name)
-    self.total_lines = file_info[:other_lines]
-    self.klass_array = file_info[:klass_array]
+  def calculate
   end
 
-  def total_lines
-    @total_lines + klass_array.map(&:total_lines).inject(:+)
+  def pretty_print
   end
 
   private
