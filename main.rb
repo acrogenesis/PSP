@@ -3,9 +3,7 @@ require_relative 'file_manager'
 class Main
   def self.start
     info = read
-    # sorted_files_array = sort(info[:files_array])
-    pretty_print(info[:files_array], info[:total_lines])
-    pretty_save(info[:files_array], info[:total_lines])
+    info_print(info)
   end
 
   def self.read
@@ -24,52 +22,7 @@ class Main
     { files_array: files_array, total_lines: total_lines }
   end
 
-  # def self.sort(files_array)
-  #   files_array.sort! do |a1, a2|
-  #     a1.info_lines <=> a2.info_lines
-  #   end
-  # end
-
-  def self.pretty_print(files_array, total_lines)
-    # sorted_files_array.each(&:pretty_print)
-
-    puts 'PARTES BASE:'
-    files_array.map do |f|
-      f.klass_array.map { |k| k.pretty_print('base') }
-    end
-    puts '--------------------------------------------'
-    puts 'PARTES NUEVAS:'
-    files_array.map do |f|
-      f.klass_array.map { |k| k.pretty_print('nueva') }
-    end
-    puts '--------------------------------------------'
-    puts 'PARTES REUSADAS:'
-    files_array.map do |f|
-      f.klass_array.map { |k| k.pretty_print('reusada') }
-    end
-    puts '--------------------------------------------'
-    puts "Total de LDC=#{total_lines}"
-  end
-
-  def self.pretty_save(files_array, total_lines)
-    File.open('ConteoLDC.txt', 'w') do |s|
-      s.puts 'PARTES BASE:'
-      files_array.map do |f|
-        f.klass_array.map { |k| k.pretty_string('base', s) }
-      end
-      s.puts '--------------------------------------------'
-      s.puts 'PARTES NUEVAS:'
-      files_array.map do |f|
-        f.klass_array.map { |k| k.pretty_string('nueva', s) }
-      end
-      s.puts '--------------------------------------------'
-      s.puts 'PARTES REUSADAS:'
-      files_array.map do |f|
-        f.klass_array.map { |k| k.pretty_string('reusada', s) }
-      end
-      s.puts '--------------------------------------------'
-      s.puts "Total de LDC=#{total_lines}"
-    end
+  def self.info_print(info)
   end
 end
 
