@@ -1,7 +1,9 @@
+#&p-MathLinearRegression
 class MathLinearRegression
   attr_accessor :N, :xk, :r, :b0, :b1, :yk, :x_array, :y_array, :x_average, :y_average, :sum_x,
                 :sum_y, :sum_xy, :sum_x2, :sum_y2
 
+  #&i
   def initialize(content)
     # sets N, xk, x_array and y_array
     self.x_array = []
@@ -15,6 +17,7 @@ class MathLinearRegression
     self.N = x_array.count
   end
 
+  #&i
   def calculate
     calculate_sums
     calc_b1
@@ -23,12 +26,14 @@ class MathLinearRegression
     calc_yk
   end
 
+  #&i
   def r2
     r**2
   end
 
   private
 
+  #&i
   def calculate_sums
     # Sums of X & Y
     self.sum_x = x_array.reduce(&:+)
@@ -46,18 +51,22 @@ class MathLinearRegression
     self.sum_xy = temp_xy
   end
 
+  #&i
   def calc_b1
     self.b1 = (sum_xy - (self.N * x_average * y_average)) / (sum_x2 - (self.N * (x_average**2)))
   end
 
+  #&i
   def calc_r
     self.r = ((self.N * sum_xy) - (sum_x * sum_y)) / Math.sqrt(((self.N * sum_x2) - sum_x**2) * ((self.N * sum_y2) - sum_y**2))
   end
 
+  #&i
   def calc_b0
     self.b0 = y_average - b1 * x_average
   end
 
+  #&i
   def calc_yk
     self.yk = b0 + b1 * xk
   end
