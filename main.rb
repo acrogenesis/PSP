@@ -2,27 +2,20 @@
 require_relative 'file_manager'
 class Main
   def self.start
-    info = read
-    info_print(info)
+    file = read
+    file_print(file)
   end
 
   def self.read
-    total_lines = 0
-    files_array = []
     print 'Nombre del archivo: '
     file_name = gets.chomp
-    while file_name != ''
-      file = FileManager.new(file_name)
-      files_array << file
-      file.count
-      total_lines += file.total_lines
-      print 'Nombre del archivo: '
-      file_name = gets.chomp
-    end
-    { files_array: files_array, total_lines: total_lines }
+    file = FileManager.new(file_name)
+    file.calculate
+    file
   end
 
-  def self.info_print(info)
+  def self.file_print(file)
+    file.pretty_print
   end
 end
 

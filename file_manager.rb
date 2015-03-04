@@ -10,20 +10,34 @@ class FileManager
   end
 
   def calculate
+    self.linear_regression = MathLinearRegression.new(File.readlines(file_name).map(&:strip).reject { |x| x == '' }.compact)
+    linear_regression.calculate
   end
 
   def pretty_print
+    puts "N = #{linear_regression.N}"
+    puts "xk = #{linear_regression.xk}"
+    puts "r = #{linear_regression.r.round(5)}"
+    puts "r2 = #{linear_regression.r2.round(5)}"
+    puts "b0 = #{linear_regression.b0.round(5)}"
+    puts "b1 = #{linear_regression.b1.round(5)}"
+    puts "yk = #{linear_regression.yk.round(5)}"
   end
 
   private
 
   def check_exceptions
     # el archivo tiene xk
-    # el archivo tiene al menos 1 par, osea N <= 1
-    if File.extname(file_name) == '.src'
+    if File.extname(file_name) == '.txt'
       if File.exist?(file_name)
         if File.readable?(file_name)
-          true
+          content = File.readlines(file_name).map(&:strip).reject { |x| x == '' }.compact.first
+          if content.to_i >= 0
+            true
+          else
+            puts 'Error: El primer renglon debe ser mayor o igual a cero'
+            exit(0)
+          end
         else
           puts 'Error: Archivo no se puede leer.'
           exit(0)
@@ -33,7 +47,7 @@ class FileManager
         exit(0)
       end
     else
-      puts 'Error: Solo se permite archivos .src.'
+      puts 'Error: Solo se permite archivos .txt.'
       exit(0)
     end
   end
