@@ -1,42 +1,71 @@
 #&p-Simpson
 class Simpson
   attr_accessor :x, :dof, :p
+  E = 0.0000001
 
   #&i
   def initialize(x, dof)
+    self.x = x
+    self.dof = dof
   end
 
   #&i
   def calculate
+    n = 10.0
+    p_10 = calculate_p(n)
+    p_20 = calculate_p(n * 2)
+    while (p_10 - p_20) < E
+      n *= 2
+      p_10 = calculate_p(n)
+      p_20 = calculate_p(n * 2)
+    end
+    self.p = p_20
+    p
   end
 
   #&i
-  def calculate_p
+  def calculate_p(n)
+    w = x / n
+    xi = 0.0
+    f_array = []
+    result = 0.0
+    (n + 1).times do
+      xi += w
+      f_array << calculate_f(xi)
+    end
+    result += f_array.first + f_array.last
+    m = 4.0
+    (1..19).each do |i|
+      result += f_array[i] * m * (w / 3.0)
+      m == 4.0 ? m = 2.0 : m = 4.0
+    end
+    result
   end
 
   private
 
   #&i
-  def calculate_f
+  def calculate_f(xi)
+    calc_left * calc_right(xi)
   end
 
   #&i
   def calc_left
+    calc_nom / calc_denom
   end
 
   #&i
-  def calc_right
+  def calc_right(xi)
+    (1.0 + (xi**2.0 / dof))**(-(dof + 1.0) / 2.0)
   end
 
   #&i
   def calc_nom
+    Math.gamma((dof + 1.0) / 2.0)
   end
 
   #&i
   def calc_denom
-  end
-
-  #&i
-  def calc_w
+    ((dof * Math::PI)**(1.0 / 2.0)) * Math.gamma(dof / 2.0)
   end
 end

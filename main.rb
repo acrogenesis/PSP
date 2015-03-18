@@ -5,12 +5,22 @@ require_relative 'calc_manager'
 class Main
   #&i
   def self.start
+    calc = user_input
+    print(calc)
   end
+
   #&i
-  def self.get_user_input
+  def self.user_input
+    print 'Ingrese x: '
+    x = gets.chomp
+    print 'Ingrese dof: '
+    dof = gets.chomp
+    CalcManager.new(x: x.to_f, dof: dof)
   end
+
   #&i
   def self.print(calc)
+    calc.pretty_print
   end
 end
 
