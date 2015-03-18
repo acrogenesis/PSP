@@ -1,26 +1,27 @@
 #!/usr/bin/env ruby
-require_relative 'calc_manager'
+require_relative 'calc_manager' #&m
 #&p-Main
-#&b=48
+#&b=13
 class Main
   #&i
   def self.start
-    calc = user_input
-    pretty_print(calc)
+    calc = user_input #&m
+    pretty_print(calc) #&m
   end
 
   #&i
   def self.user_input
-    print 'Ingrese x: '
-    x = gets.chomp
+    print 'Ingrese x: ' #&m
+    x = gets.chomp #&m
     print 'Ingrese dof: '
     dof = gets.chomp
-    CalcManager.new(x: x.to_f, dof: dof)
+    CalcManager.new(x: x.to_f, dof: dof) #&m
+    #&d=2
   end
 
   #&i
-  def self.pretty_print(calc)
-    calc.pretty_print
+  def self.pretty_print(calc) #&m
+    calc.pretty_print #&m
   end
 end
 
