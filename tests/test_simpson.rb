@@ -6,7 +6,7 @@ class TestSimpson < Minitest::Test
   end
 
   def test_calculate
-    assert_equal @s.calculate, 0.35006
+    assert_equal @s.calculate.round(5), 0.35006
     assert_equal @s.x, 1.1
     assert_equal @s.dof, 9
   end

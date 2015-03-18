@@ -6,7 +6,7 @@ class Main
   #&i
   def self.start
     calc = user_input
-    print(calc)
+    pretty_print(calc)
   end
 
   #&i
@@ -19,7 +19,7 @@ class Main
   end
 
   #&i
-  def self.print(calc)
+  def self.pretty_print(calc)
     calc.pretty_print
   end
 end

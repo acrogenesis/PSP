@@ -21,7 +21,7 @@ class CalcManager
   def pretty_print
     puts "x   = #{x.round(5)}"
     puts "dof = #{dof}"
-    puts "p   = #{simpson.p.round(5)}"
+    puts "p   =  #{format('%.5f', simpson.p.round(5))}"
   end
 
   private
@@ -29,7 +29,7 @@ class CalcManager
   #&i
   def check_exceptions
     if x >= 0
-      if dof.match =~ /^\d*$/ && dof.to_i > 0
+      if (dof =~ /^\d*$/) && (dof.to_i > 0)
         self.dof = dof.to_i
         true
       else
