@@ -2,12 +2,16 @@ require_relative 'simpson'
 #&p-CalcManager
 #&b=26
 class CalcManager
-  attr_accessor :x, :dof, :simpson
+  attr_accessor :x, :dof, :p_user, :simpson, :d, :adjust_flag
+  E = 0.00000001
 
   #&i
   def initialize(args)
-    self.x = args[:x]
+    self.p_user = args[:p_user]
     self.dof = args[:dof]
+    self.x = 1.0
+    self.d = 0.5
+    self.adjust_flag = 0
     check_exceptions
     self.simpson = Simpson.new(x, dof)
     calculate
@@ -15,21 +19,42 @@ class CalcManager
 
   #&i
   def calculate
-    simpson.calculate
+    p_calc = simpson.calculate
+    while (p_calc - p_user) < E
+      if p_calc > p_user
+        adjust_d(current: 1, previous: adjust_flag)
+        self.x = x - d
+        adjust_flag = 1
+      else
+        adjust_d(current: -1, previous: adjust_flag)
+        self.x = x + d
+        adjust_flag = -1
+      end
+      simpson = Simpson.new(x, dof)
+      p_calc = simpson.calculate
+    end
+    self
+  end
+
+  #&i
+  def adjust_d(args)
+    return if args[:previous] == 0
+    return if args[:current] == args[:previous]
+    self.d = d / 2
   end
 
   #&i
   def pretty_print
-    puts "x   = #{x.round(5)}"
-    puts "dof = #{dof}"
     puts "p   =  #{format('%.5f', simpson.p.round(5))}"
+    puts "dof = #{dof}"
+    puts "x   = #{x.round(5)}"
   end
 
   private
 
   #&i
   def check_exceptions
-    if x >= 0
+    if 0 < p_user < 0.5
       if (dof =~ /^\d*$/) && (dof.to_i > 0)
         self.dof = dof.to_i
         true
@@ -38,7 +63,7 @@ class CalcManager
         exit(0)
       end
     else
-      puts 'Error: X debe ser numero real >= 0'
+      puts 'Error: P debe ser un numero entre 0 y 0.5'
       exit(0)
     end
   end
