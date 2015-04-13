@@ -1,4 +1,5 @@
 #&p-Simpson
+#&b=41
 class Simpson
   attr_accessor :x, :dof, :p
   E = 0.0000001

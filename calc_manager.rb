@@ -1,5 +1,6 @@
 require_relative 'simpson'
 #&p-CalcManager
+#&b=26
 class CalcManager
   attr_accessor :x, :dof, :simpson
 
