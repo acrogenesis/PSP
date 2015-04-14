@@ -19,7 +19,7 @@ class CalcManager
 
   #&i
   def calculate
-    p_calc = simpson.calculate
+    p_calc = simpson.calculate.round(5)
     while (p_calc - p_user).abs > E
       if p_calc > p_user
         adjust_d(current: 1, previous: adjust_flag)
@@ -31,7 +31,7 @@ class CalcManager
         adjust_flag = -1
       end
       simpson = Simpson.new(x, dof)
-      p_calc = simpson.calculate
+      p_calc = simpson.calculate.round(5)
     end
     self
   end
