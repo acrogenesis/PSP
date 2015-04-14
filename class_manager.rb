@@ -19,7 +19,7 @@ class ClassManager
   #&i
   def real_type
     return 'nueva' if type.nil?
-    return 'reusada' if total_lines == base_lines
+    return 'reusada' if total_lines == base_lines && (modified_count + delete_count) == 0
     type
   end
 
