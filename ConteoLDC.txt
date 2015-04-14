@@ -1,10 +1,10 @@
 PARTES BASE:
+CalcManager: T=46, I=5 B=26, D=0, M=6, A=20
+Main: T=13, I=3 B=13, D=0, M=3, A=0
 --------------------------------------------
 PARTES NUEVAS:
-CalcManager: T=26, I=4 
-Simpson: T=41, I=8 
 --------------------------------------------
 PARTES REUSADAS:
-Main: T=13, I=3 B=13,
+Simpson: T=41, I=8 B=41,
 --------------------------------------------
-Total de LDC=82
+Total de LDC=102
