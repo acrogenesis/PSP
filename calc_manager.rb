@@ -20,7 +20,7 @@ class CalcManager
   #&i
   def calculate
     p_calc = simpson.calculate
-    while (p_calc - p_user) < E
+    while (p_calc - p_user).abs > E
       if p_calc > p_user
         adjust_d(current: 1, previous: adjust_flag)
         self.x = x - d
@@ -45,7 +45,7 @@ class CalcManager
 
   #&i
   def pretty_print
-    puts "p   =  #{format('%.5f', simpson.p.round(5))}"
+    puts "p   =  #{format('%.5f', p_user.round(5))}"
     puts "dof = #{dof}"
     puts "x   = #{x.round(5)}"
   end
@@ -54,7 +54,7 @@ class CalcManager
 
   #&i
   def check_exceptions
-    if 0 < p_user < 0.5
+    if 0 < p_user && p_user < 0.5
       if (dof =~ /^\d*$/) && (dof.to_i > 0)
         self.dof = dof.to_i
         true
