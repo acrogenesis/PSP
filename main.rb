@@ -11,11 +11,11 @@ class Main
 
   #&i
   def self.user_input
-    print 'Ingrese p: '
+    print 'Ingrese p: ' #&m
     p_user = gets.chomp
-    print 'Ingrese dof: '
+    print 'Ingrese dof: ' #&m
     dof = gets.chomp
-    CalcManager.new(p_user: p_user.to_f, dof: dof)
+    CalcManager.new(p_user: p_user.to_f, dof: dof) #&m
   end
 
   #&i
