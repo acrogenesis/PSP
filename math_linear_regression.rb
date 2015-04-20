@@ -101,8 +101,8 @@ class MathLinearRegression
 
   #&i
   def calc_li
-    self.li = 0 if (yk - ran) < 0
     self.li = yk - ran
+    self.li = 0 if (yk - ran) < 0
   end
 
   #&i
