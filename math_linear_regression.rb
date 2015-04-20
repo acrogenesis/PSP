@@ -4,7 +4,7 @@ require_relative 'simpson'
 #&b=40
 class MathLinearRegression
   attr_accessor :N, :xk, :r, :b0, :b1, :yk, :x_array, :y_array, :x_average, :y_average, :sum_x,
-                :sum_y, :sum_xy, :sum_x2, :sum_y2, :sig, :ran, :ls, :li #&m
+                :sum_y, :sum_xy, :sum_x2, :sum_y2, :sig, :ran, :ls, :li, :d #&m
 
   E = 0.00000001
 
@@ -14,6 +14,7 @@ class MathLinearRegression
     self.x_array = []
     self.y_array = []
     self.xk = content.shift.to_i
+    self.d = 0.5
     content.each do |val|
       x, y = val.split(',')
       x_array << x.to_f
@@ -47,7 +48,8 @@ class MathLinearRegression
   def calculate_x(p_user, dof)
     simpson = Simpson.new(p_user, dof)
     x = 0.0
-    p_calc = simpson.calculate.round(5)
+    adjust_flag = 0
+    p_calc = simpson.calculate
     while (p_calc - p_user).abs > E
       if p_calc > p_user
         adjust_d(current: 1, previous: adjust_flag)
@@ -59,7 +61,7 @@ class MathLinearRegression
         adjust_flag = -1
       end
       simpson = Simpson.new(x, dof)
-      p_calc = simpson.calculate.round(5)
+      p_calc = simpson.calculate
     end
     x
   end
@@ -73,8 +75,8 @@ class MathLinearRegression
 
   #&i
   def calc_sig
-    x = (r.abs * Math.sqrt(self.N - 2)) / Math.sqrt(1 - r2)
-    simpson = Simpson.new(x, self.N - 2)
+    x = (r.abs * Math.sqrt(self.N - 2.0)) / Math.sqrt(1.0 - (r2))
+    simpson = Simpson.new(x, self.N - 2.0)
     p_calc = simpson.calculate
     self.sig = (1 - 2 * p_calc)
   end
@@ -87,8 +89,8 @@ class MathLinearRegression
       sum_o += (y_array[i] - b0 - b1 * x_array[i])**2
     end
     a = calculate_x(0.35, self.N - 2)
-    b = Math.sqrt((1 / self.N - 2) * sum_o)
-    c = Math.sqrt(1 + (1 / self.N) + (((xk - x_average)**2) / sum_r))
+    b = Math.sqrt((1.0 / (self.N - 2.0)) * sum_o)
+    c = Math.sqrt(1.0 + (1.0 / self.N) + (((xk - x_average)**2) / sum_r))
     self.ran = a * b * c
   end
 
