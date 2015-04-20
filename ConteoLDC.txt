@@ -1,10 +1,11 @@
 PARTES BASE:
-CalcManager: T=46, I=5 B=26, D=0, M=6, A=20
-Main: T=13, I=3 B=13, D=0, M=3, A=0
+FileManager: T=40, I=4 B=36, D=0, M=0, A=4
+MathLinearRegression: T=86, I=14 B=40, D=0, M=1, A=46
 --------------------------------------------
 PARTES NUEVAS:
 --------------------------------------------
 PARTES REUSADAS:
+Main: T=13, I=3 B=13,
 Simpson: T=41, I=8 B=41,
 --------------------------------------------
-Total de LDC=102
+Total de LDC=183
