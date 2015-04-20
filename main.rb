@@ -1,27 +1,31 @@
 #!/usr/bin/env ruby
-require_relative 'calc_manager'
+require_relative 'file_manager'
 #&p-Main
-#&b=13
+#&b=48
 class Main
   #&i
   def self.start
-    calc = user_input
-    pretty_print(calc)
+    file = read #&m
+    file_print(file) #&m
+    #&d=1
   end
-
   #&i
-  def self.user_input
-    print 'Ingrese p: ' #&m
-    p_user = gets.chomp
-    print 'Ingrese dof: ' #&m
-    dof = gets.chomp
-    CalcManager.new(p_user: p_user.to_f, dof: dof) #&m
+  def self.read
+    #&d=2
+    print 'Nombre del archivo: '
+    file_name = gets.chomp
+    #&d=1
+    file = FileManager.new(file_name)
+    file.calculate #&m
+    file
+    #&d=5
   end
-
   #&i
-  def self.pretty_print(calc)
-    calc.pretty_print
+  def self.file_print(file)
+    #&d=13
+    file.pretty_print
   end
+  #&d=15
 end
 
 Main.start
