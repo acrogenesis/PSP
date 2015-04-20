@@ -73,18 +73,34 @@ class MathLinearRegression
 
   #&i
   def calc_sig
+    x = (r.abs * Math.sqrt(self.N - 2)) / Math.sqrt(1 - r2)
+    simpson = Simpson.new(x, self.N - 2)
+    p_calc = simpson.calculate
+    self.sig = (1 - 2 * p_calc)
   end
 
   #&i
   def calc_ran
+    sum_o = 0.0
+    sum_r = x_array.map { |x| (x - x_average)**2 }.reduce(&:+)
+    (0..self.N - 1).each do |i|
+      sum_o += (y_array[i] - b0 - b1 * x_array[i])**2
+    end
+    a = calculate_x(0.35, self.N - 2)
+    b = Math.sqrt((1 / self.N - 2) * sum_o)
+    c = Math.sqrt(1 + (1 / self.N) + (((xk - x_average)**2) / sum_r))
+    self.ran = a * b * c
   end
 
   #&i
   def calc_ls
+    self.ls = yk + ran
   end
 
   #&i
   def calc_li
+    self.li = 0 if (yk - ran) < 0
+    self.li = yk - ran
   end
 
   #&i

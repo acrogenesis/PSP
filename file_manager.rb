@@ -28,7 +28,7 @@ class FileManager
     puts "b1 = #{linear_regression.b1.round(5)}"
     puts "yk = #{linear_regression.yk.round(5)}"
 
-    puts "sig = #{linear_regression.sig}"
+    puts "sig = #{linear_regression.sig.round(10)}"
     puts "ran = #{linear_regression.ran.round(5)}"
     puts "LS = #{linear_regression.ls.round(5)}"
     puts "LI = #{linear_regression.li.round(5)}"
