@@ -1,4 +1,5 @@
 #&p-MathLinearRegression
+#&b=40
 class MathLinearRegression
   attr_accessor :N, :xk, :r, :b0, :b1, :yk, :x_array, :y_array, :x_average, :y_average, :sum_x,
                 :sum_y, :sum_xy, :sum_x2, :sum_y2
